@@ -38,13 +38,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>codehause</id>
-            <url>http://repository.codehaus.org</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
