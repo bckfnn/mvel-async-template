@@ -20,7 +20,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/bckfnn/mvel-async-template.git</connection>
-        <developerConnection>scm:git:https://github.com/bckfnn/mvel-async-template.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:bckfnn/mvel-async-template.git</developerConnection>
         <url>https://github.com/bckfnn/mvel-async-template.git</url>
         <tag>HEAD</tag>
     </scm>
