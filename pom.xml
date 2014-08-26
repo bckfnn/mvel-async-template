@@ -111,9 +111,16 @@
             <version>2.2.1.Final</version>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.0.6</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- Test -->
