@@ -65,6 +65,7 @@ public class TemplateRuntime implements Cback {
                 currentFactory = namespace.pop();
             }
             if (currentNode == null) {
+                end();
                 break;
             }
         }
@@ -111,6 +112,10 @@ public class TemplateRuntime implements Cback {
         return true;
     }
 
+    public void end() {
+        
+    }
+    
     /**
      * @return the generated output.
      */
