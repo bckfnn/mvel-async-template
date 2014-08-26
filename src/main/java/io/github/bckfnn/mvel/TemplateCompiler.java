@@ -59,6 +59,15 @@ public class TemplateCompiler {
     }
 
     /**
+     * Add a user ORB.
+     * @param orbName name of the orb.
+     * @param nodeClass class of the implementing node.
+     */
+    public void addCommand(String orbName, Class<? extends Node> nodeClass) {
+        commands.put(orbName, nodeClass);
+    }
+
+    /**
      * @return the template loader.
      */
     public TemplateLoader getTemplateLoader() {
