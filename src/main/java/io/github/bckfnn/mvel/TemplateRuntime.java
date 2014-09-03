@@ -78,7 +78,7 @@ public class TemplateRuntime {
 
     /**
      * Save an old execution level on the stack. Execution will return to the old level when some future 
-     * node does <code>callback.handle(null)</code>
+     * node does <code>runtime.continueWith(null, ?)</code>
      * @param node the node where execution will continue eventually.
      * @param vrf the current variable factory.
      */

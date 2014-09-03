@@ -28,7 +28,7 @@ public abstract class Node {
     private char[] content;
 
     /**
-     * Default contructor. Used by the TemplateCompiler to to create custom nodes with reflection.
+     * Default constructor. Used by the TemplateCompiler to to create custom nodes with reflection.
      */
     public Node() {
 
