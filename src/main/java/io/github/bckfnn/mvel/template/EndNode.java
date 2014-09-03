@@ -33,7 +33,7 @@ public class EndNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
-        return callback.handle(getNext());
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
+        return runtime.continueWith(getNext(), factory);
     }
 }

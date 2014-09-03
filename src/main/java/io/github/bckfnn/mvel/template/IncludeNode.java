@@ -36,13 +36,13 @@ public class IncludeNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         Object val = MVEL.executeExpression(expr, ctx, factory);
 
         try {
             Template template = runtime.getTemplate().getTemplateCompiler().compileResource(val.toString());
             runtime.pushExecution(getNext(), factory);
-            return callback.handle(template.getRoot());
+            return runtime.continueWith(template.getRoot(), factory);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

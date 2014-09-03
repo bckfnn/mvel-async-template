@@ -31,8 +31,8 @@ public class CodeNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         MVEL.executeExpression(expr, ctx, factory);
-        return callback.handle(getNext());
+        return runtime.continueWith(getNext(), factory);
     }
 }

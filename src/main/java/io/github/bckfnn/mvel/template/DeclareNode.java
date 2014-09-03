@@ -47,7 +47,7 @@ public class DeclareNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         Map<String, Object> locals = new HashMap<String, Object>();
         MapVariableResolverFactory localFactory = new MapVariableResolverFactory(locals, factory);
 
@@ -55,6 +55,6 @@ public class DeclareNode extends Node {
 
         //System.out.println(val + " " + nested);
         runtime.addDeclared(val.toString(), nested);
-        return callback.handle(getNext());
+        return runtime.continueWith(getNext(), factory);
     }
 }

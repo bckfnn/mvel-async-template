@@ -49,7 +49,7 @@ public class ForEachNode extends Node {
     }
 
     @Override
-    public boolean  eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         Map<String, Object> locals = new HashMap<String, Object>();
         MapVariableResolverFactory localFactory = new MapVariableResolverFactory(locals, factory);
 
@@ -63,13 +63,13 @@ public class ForEachNode extends Node {
 
         if (val instanceof Collection) {
             iterate(runtime, key, ((Collection<?>) val).iterator(), factory);
-            return callback.handle(null);
+            return runtime.continueWith(null, factory);
         }
         if (val.getClass().isArray()) {
             iterate(runtime, key, Arrays.asList((Object[]) val).iterator(), factory);
-            return callback.handle(null);
+            return runtime.continueWith(null, factory);
         }
-        return callback.handle(getNext());
+        return runtime.continueWith(getNext(), factory);
     }
 
     private void iterate(TemplateRuntime runtime, String key, Iterator<?> iterator, VariableResolverFactory factory) {
@@ -89,15 +89,15 @@ public class ForEachNode extends Node {
             this.locals = locals;
         }
 
-        public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+        public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
             if (iterator.hasNext()) {
                 Object val = iterator.next();
                 locals.put(key, val);
 
                 runtime.pushExecution(this,  factory);
-                return callback.handle(nested);
+                return runtime.continueWith(nested, factory);
             } else {
-                return callback.handle(ForEachNode.this.getNext());
+                return runtime.continueWith(ForEachNode.this.getNext(), factory);
             }
         }
 

@@ -133,12 +133,11 @@ public abstract class Node {
      * @param runtime the template runtime.
      * @param ctx the context object
      * @param factory the variable factory.
-     * @param callback the callback to call if this node is ready to continue.
      * @return true if the runtime can continue evaluating the template synchronously. 
      * Return false when the runtime should yield and let some asynchronously call reschedule 
      * evaluation of the template.   
      */
-    public abstract boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback);
+    public abstract boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory);
 
     @Override
     public String toString() {

@@ -31,7 +31,7 @@ public class ExprNode extends Node {
 	}
 
 	@Override
-	public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
-		return runtime.append(String.valueOf(MVEL.executeExpression(expr, ctx, factory)), getNext());
+	public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
+		return runtime.append(String.valueOf(MVEL.executeExpression(expr, ctx, factory)), getNext(), factory);
 	}
 }

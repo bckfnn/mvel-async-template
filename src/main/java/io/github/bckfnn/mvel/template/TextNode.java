@@ -22,7 +22,7 @@ import org.mvel2.integration.VariableResolverFactory;
  */
 public class TextNode extends Node {
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
-        return runtime.append(getContent(), getBegin(), getLen(), getNext());
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
+        return runtime.append(getContent(), getBegin(), getLen(), getNext(), factory);
     }
 }

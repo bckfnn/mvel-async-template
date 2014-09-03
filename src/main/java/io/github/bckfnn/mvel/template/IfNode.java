@@ -47,10 +47,10 @@ public class IfNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         Object val = MVEL.executeExpression(expr, ctx, factory);
         runtime.pushExecution(getNext(), factory);
-        return callback.handle(isTrue(val) ? trueBlock : falseBlock);
+        return runtime.continueWith(isTrue(val) ? trueBlock : falseBlock, factory);
     }
 
     static boolean isTrue(Object val) {

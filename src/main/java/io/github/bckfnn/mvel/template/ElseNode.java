@@ -68,14 +68,14 @@ public class ElseNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         if (expr != null) {
             Object val = MVEL.executeExpression(expr, ctx, factory);
             runtime.pushExecution(getNext(), factory);
-            return callback.handle(IfNode.isTrue(val) ? trueBlock : falseBlock);
+            return runtime.continueWith(IfNode.isTrue(val) ? trueBlock : falseBlock, factory);
         }
 
         runtime.pushExecution(getNext(), factory);
-        return callback.handle(trueBlock);
+        return runtime.continueWith(trueBlock, factory);
     }
 }

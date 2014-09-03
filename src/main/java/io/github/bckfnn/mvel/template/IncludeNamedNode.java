@@ -37,17 +37,14 @@ public class IncludeNamedNode extends Node {
     }
 
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
         Map<String, Object> locals = new HashMap<String, Object>();
         MapVariableResolverFactory localFactory = new MapVariableResolverFactory(locals, factory);
 
         MVEL.executeExpression(expr, ctx, localFactory);
-
-        //		System.out.println(val + " " + locals);
+        
         runtime.pushExecution(getNext(), factory);
-        //System.out.println(getNext() + " " + runtime.declared.get(locals.get("$")));
-        runtime.pushExecution(runtime.getDeclared(locals.get("$").toString()), localFactory);
-        //runtime.declared.get(locals.get("$")).eval(runtime, ctx, localFactory);
-        return callback.handle(null);
+        Node nested = runtime.getDeclared(locals.get("$").toString());
+        return runtime.continueWith(nested, localFactory);
     }
 }

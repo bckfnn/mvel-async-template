@@ -22,8 +22,8 @@ import org.mvel2.integration.VariableResolverFactory;
  */
 public class RootNode extends Node {
     @Override
-    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
-        return callback.handle(getNext());
+    public boolean eval(TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
+        return runtime.continueWith(getNext(), factory);
     }
 
     @Override

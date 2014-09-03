@@ -3,7 +3,6 @@ package io.github.bckfnn.mvel.test;
 import io.github.bckfnn.mvel.Template;
 import io.github.bckfnn.mvel.TemplateCompiler;
 import io.github.bckfnn.mvel.TemplateContext;
-import io.github.bckfnn.mvel.template.Cback;
 import io.github.bckfnn.mvel.template.io.ClassPathTemplateLoader;
 
 import java.io.Serializable;
@@ -1162,9 +1161,9 @@ public class TemplateTest extends TestCase {
 
     public static class TestPluginNode extends io.github.bckfnn.mvel.template.Node {
 
-        public boolean eval(io.github.bckfnn.mvel.TemplateRuntime runtime, Object ctx, VariableResolverFactory factory, Cback callback) {
+        public boolean eval(io.github.bckfnn.mvel.TemplateRuntime runtime, Object ctx, VariableResolverFactory factory) {
             //appender.append("THIS_IS_A_TEST");
-            return callback.handle(getNext());
+            return runtime.continueWith(getNext(), factory);
         }
 
         public boolean demarc(TemplateContext context, Node terminatingNode) {

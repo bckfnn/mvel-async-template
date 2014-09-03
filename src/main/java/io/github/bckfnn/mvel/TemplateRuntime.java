@@ -13,7 +13,6 @@
  */
 package io.github.bckfnn.mvel;
 
-import io.github.bckfnn.mvel.template.Cback;
 import io.github.bckfnn.mvel.template.Node;
 
 import java.util.HashMap;
@@ -25,7 +24,7 @@ import org.mvel2.integration.VariableResolverFactory;
 /**
  * Runtime execution environment.
  */
-public class TemplateRuntime implements Cback {
+public class TemplateRuntime {
     private Stack<Node> runtimeStack = new Stack<Node>();
     private Stack<VariableResolverFactory> namespace = new Stack<VariableResolverFactory>();
     private Map<String, Node> declared = new HashMap<String, Node>();
@@ -57,7 +56,7 @@ public class TemplateRuntime implements Cback {
     public void exec() {
         while (true) {
             //System.out.println("handle:" + currentNode);
-            if (!currentNode.eval(this, context, currentFactory, this)) {
+            if (!currentNode.eval(this, context, currentFactory)) {
                 break;
             }
             while (currentNode == null && runtimeStack.size() > 0) {
@@ -71,8 +70,9 @@ public class TemplateRuntime implements Cback {
         }
     }
 
-    public boolean handle(Node node) {
+    public boolean continueWith(Node node, VariableResolverFactory factory) {
         currentNode = node;
+        currentFactory = factory;
         return true;
     }
 
@@ -91,12 +91,12 @@ public class TemplateRuntime implements Cback {
      * Generate template output. 
      * @param str the string output.
      * @param next the node where execution must continue when output have been written.
+     * @param factory the variable factory.
      * @return true if execution can continue synchronously.
      */
-    public boolean append(String str, Node next) {
+    public boolean append(String str, Node next, VariableResolverFactory factory) {
         output.append(str);
-        currentNode = next;
-        return true;
+        return continueWith(next, factory);
     }
 
     /**
@@ -104,12 +104,12 @@ public class TemplateRuntime implements Cback {
      * @param start the start position of the output characters.
      * @param len the length of output.
      * @param next the node where execution must continue when output have been written.
+     * @param factory the variable factory.
      * @return true if execution can continue synchronously.
      */
-    public boolean append(char[] content, int start, int len, Node next) {
+    public boolean append(char[] content, int start, int len, Node next, VariableResolverFactory factory) {
         output.append(content, start, len);
-        currentNode = next;
-        return true;
+        return continueWith(next, factory);
     }
 
     public void end() {
